@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- 表示应用thymeleaf模板 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>登陆</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet"/>
+    <link href="../static/css/login.css" rel="stylesheet">
+    <!--<link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>-->
+    <!-- jquery -->
+    <script src="../static/js/jquery-1.11.1.min.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="../static/js/bootstrap.js"></script>
+    <script src="../static/js/vue.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container " id="login">
+
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading">请登陆</h2>
+        <p class="">{{errorMessage}}</p>
+        <input @change="checkUserName" v-model="user.name" type="text" class="form-control" placeholder="用户名" required="required" autofocus="autofocus"/>
+        <input v-model="user.password" type="password" class="form-control" placeholder="密码" required="required"/>
+        <div class="checkbox">
+          <label>
+            <input name="isRemembered" type="checkbox" value="remember-me"/> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" @click="login">登陆</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+<script>
+    var app = new Vue({
+        el:"#login",
+        data:{
+            errorMessage:"",
+            user:{
+                name:"",
+                password:""
+            }
+        },
+        methods:{
+            login:function (e) {
+                e.stopPropagation();
+                console.log(e)
+            },
+            checkUserName: function (e) {
+                console.log(e)
+                $.post("/user/nameExists",{name:this.user.name}, function (data) {
+                    console.log(data)
+                    if (data) app.errorMessage = "用户名已存在"
+                    else  app.errorMessage = "恭喜您，可以注册";
+                },"json")
+            }
+        },
+        computed:{
+
+        }
+    })
+</script>
+</html>
