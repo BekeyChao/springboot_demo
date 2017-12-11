@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <!-- 表示应用thymeleaf模板 -->
-<html xmlns:th="http://www.thymeleaf.org">
-<!--<html lang="en">-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html lang="Zh-cn">
   <head>
     <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
 
-    <title>登陆</title>
+    <title>欢迎登陆XXX管理系统</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.css" rel="stylesheet"/>
@@ -21,24 +17,35 @@
     <script src="../static/js/bootstrap.js"></script>
     <script src="../static/js/vue.js"></script>
   </head>
-
+  <style>
+    .form-login {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+  </style>
   <body>
 
-    <div class="container " id="login">
-
-      <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">请登陆</h2>
-        <p class="">{{errorMessage}}</p>
-        <input @change="checkUserName" v-model="user.name" type="text" class="form-control" placeholder="用户名" required="required" autofocus="autofocus"/>
-        <input v-model="user.password" type="password" class="form-control" placeholder="密码" required="required"/>
+    <div class="container " id="app">
+      <!-- 阻止submit重载页面 -->
+      <form class="form-login" @submit.prevent="">
+        <h2 class="h2">欢迎登陆管理系统</h2>
+        <p>{{errorMessage}}</p>
+        <div class="form-group">
+          <label for="name">用户名</label>
+          <input v-model="user.name" type="text" class="form-control" id="name" placeholder="用户名">
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input v-model="user.password" type="password" class="form-control" id="password" placeholder="密码">
+        </div>
         <div class="checkbox">
           <label>
-            <input name="isRemembered" type="checkbox" value="remember-me"/> Remember me
+            <input type="checkbox" > Remember Me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" @click="login">登陆</button>
+        <button @click="login" type="submit" class="btn btn-primary">登陆</button>
       </form>
-
     </div> <!-- /container -->
 
 
@@ -47,8 +54,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
   </body>
 <script>
+
+  const RESULT_CODE = {SUCCESS:200,FAIL:400};
+
     var app = new Vue({
-        el:"#login",
+        el:"#app",
         data:{
             errorMessage:"",
             user:{
@@ -58,19 +68,24 @@
         },
         methods:{
             login:function (e) {
-                e.stopPropagation();
-                console.log(e)
-            },
-            checkUserName: function (e) {
-                console.log(e)
-                $.post("/user/nameExists",{name:this.user.name}, function (data) {
-                    console.log(data)
-                    if (data) app.errorMessage = "用户名已存在"
-                    else  app.errorMessage = "恭喜您，可以注册";
-                },"json")
+                $.post("/user/login",
+                    {name:this.user.name, password:this.user.password},
+                    function (result) {
+                        if (result.code === RESULT_CODE.SUCCESS) {
+                            console.log(result.data)
+                        }else if (result.code === RESULT_CODE.FAIL) {
+                            console.log("400");
+                            app.errorMessage = result.message
+                        }else {
+                            app.errorMessage = "未知异常"
+                        }
+                    },"json")
             }
         },
-        computed:{
+        computed: {
+
+        },
+        watch: {
 
         }
     })

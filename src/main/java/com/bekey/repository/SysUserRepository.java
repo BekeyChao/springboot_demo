@@ -13,6 +13,9 @@ public interface SysUserRepository extends JpaRepository<SysUser,Long>{
      */
     SysUser findFirstByName(String name);
 
-
+    /**
+     * 按用户名——密码查找
+     */
+    SysUser findFirstByNameAndPassword(String name,String password);
 
 }

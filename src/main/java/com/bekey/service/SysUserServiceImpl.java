@@ -32,4 +32,9 @@ public class SysUserServiceImpl implements SysUserService{
         log.info("register:" + sysUser.getId());
         return sysUser;
     }
+
+    @Override
+    public SysUser checkLogin(String name, String password) {
+        return userRepository.findFirstByNameAndPassword(name, password);
+    }
 }

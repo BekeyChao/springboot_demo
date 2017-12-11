@@ -1,4 +1,10 @@
-# spring-boot-demo
-Spring-boot Demo Web应用，  
-包括目录结构/数据库jpa连接/实体类/repository数据层dao，  
-		jobs配置/热部署/logback日志配置/aop切面等
+# springboot_demo
+Spring-boot Demo Web应用
+* spring boot
+* 数据库及DAO层：MySQL + Hibernate
+* 参数验证 validator
+* 模板引擎 thymeleaf + nekohtml
+* 日志框架 logback
+* 前端框架 Vue2.js + Bootstrap3 +jQuery
+
+在项目结构上参考了众多网上的案例

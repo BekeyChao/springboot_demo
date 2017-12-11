@@ -12,8 +12,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -49,6 +51,15 @@ public class UserController {
         return generator.genSuccessResult("用户注册成功",userService.save(user));
     }
 
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public RestResult login(String name, String password, HttpSession session) {
+        SysUser user = userService.checkLogin(name, password);
+        if(user != null) {
+            session.setAttribute("user",user);
+            return generator.genSuccessResult("登陆成功",user);
+        }
+        return generator.genFailResult("用户名/密码错误");
+    }
     /**
      * 为参数验证添加异常处理器
      */
