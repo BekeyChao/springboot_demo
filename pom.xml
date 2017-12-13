@@ -31,11 +31,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
         <!-- thymeleaf 带了starter依赖 -->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-web</artifactId>-->
-		<!--</dependency>-->
-        <!-- 实现热部署 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+         <!--实现热部署 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -54,16 +54,16 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- thymeleaf -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-        <!-- thymeleaf不严格模式 -->
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>1.9.22</version>
-        </dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+		<!--</dependency>-->
+        <!--&lt;!&ndash; thymeleaf不严格模式 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>net.sourceforge.nekohtml</groupId>-->
+            <!--<artifactId>nekohtml</artifactId>-->
+            <!--<version>1.9.22</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 	<build>
@@ -72,7 +72,34 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!--静态资源引用插件 -->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-resources-plugin</artifactId>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>copy-resources</id>-->
+						<!--<phase>validate</phase>-->
+						<!--<goals>-->
+							<!--<goal>copy-resources</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<outputDirectory>src/main/resources/META-INF/resources</outputDirectory>-->
+							<!--&lt;!&ndash; 也可以用下面这样的方式（指定相对url的方式指定outputDirectory） <outputDirectory>target/classes</outputDirectory> &ndash;&gt;-->
+							<!--<resources>-->
+								<!--<resource>-->
+									<!--<directory>../demo-ui/dist</directory>-->
+									<!--<filtering>false</filtering>-->
+								<!--</resource>-->
+							<!--</resources>-->
+						<!--</configuration>-->
+						<!--&lt;!&ndash;<inherited></inherited>&ndash;&gt;-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
 		</plugins>
+
+
 	</build>
 
 

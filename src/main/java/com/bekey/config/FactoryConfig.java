@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
+/**
+ * 配置ValidationBean
+ * Created by bekey on 2017/12/8.
+ */
 @Configuration
 @EnableAutoConfiguration
 public class FactoryConfig {

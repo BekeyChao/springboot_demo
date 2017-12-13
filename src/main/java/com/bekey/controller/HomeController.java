@@ -3,17 +3,11 @@ package com.bekey.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.validation.constraints.NotNull;
-
 
 /**
- * 登陆注册控制器
+ * SPA 单页面应用
+ * 前后端分离控制器，只负责将项目页面转发到index，其他交互完全靠接口
  * Created by bekey on 2017/12/8.
  */
 @Controller
@@ -21,20 +15,9 @@ public class HomeController {
 
     private static Logger log = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping(value = {"/index","/"},method = RequestMethod.GET)
-    public String index(Model model) {
-        model.addAttribute("name","vue.js come from controller");
-        return "index";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping("/register")
-    public String register() {
-        return "register";
+    @RequestMapping(value = {"/","/index"})
+    public String vue() {
+        return "/index.html";
     }
 
 }

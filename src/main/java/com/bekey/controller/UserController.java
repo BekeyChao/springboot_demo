@@ -4,21 +4,20 @@ import com.bekey.domain.RestResult;
 import com.bekey.domain.SysUser;
 import com.bekey.service.SysUserService;
 import com.bekey.utils.ResultGenerator;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 
 /**
@@ -52,7 +51,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public RestResult login(String name, String password, HttpSession session) {
+    public RestResult login(HttpServletRequest request,  String name, String password, HttpSession session) {
+        Map map = request.getParameterMap();
         SysUser user = userService.checkLogin(name, password);
         if(user != null) {
             session.setAttribute("user",user);

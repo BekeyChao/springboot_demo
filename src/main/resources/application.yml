@@ -29,8 +29,6 @@ spring:
     encoding: UTF-8
     # 设置LEGACYHTML5 并添加依赖 可以使thymeleaf不严格模式
     mode: LEGACYHTML5
-  mvc:
-    static-path-pattern: /**
 
 #  mvc:
 #    view: # 默认前后缀
