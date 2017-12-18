@@ -15,7 +15,7 @@ public class HomeController {
 
     private static Logger log = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping(value = {"/","/index"})
+    @RequestMapping(value = {"/"})
     public String vue() {
         return "/index.html";
     }

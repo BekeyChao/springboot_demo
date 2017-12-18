@@ -52,7 +52,6 @@ public class UserController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public RestResult login(HttpServletRequest request,  String name, String password, HttpSession session) {
-        Map map = request.getParameterMap();
         SysUser user = userService.checkLogin(name, password);
         if(user != null) {
             session.setAttribute("user",user);
